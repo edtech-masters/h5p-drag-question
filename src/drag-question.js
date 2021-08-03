@@ -582,6 +582,9 @@ C.prototype.addSolutionButton = function () {
     that.addQuestionToXAPI(xAPIEvent);
     that.addResponseToXAPI(xAPIEvent);
     that.trigger(xAPIEvent);
+    if( typeof that.parent == 'undefined') {
+     that.triggerXAPIScored(that.getScore(), that.getMaxScore(), 'submitted-curriki');
+    }
 
     // Focus top of task for better focus and read-speaker flow
     var $nextFocus = that.$introduction ? that.$introduction : that.$container.children().first();
