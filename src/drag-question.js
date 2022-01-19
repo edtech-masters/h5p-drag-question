@@ -41,6 +41,7 @@ function C(options, contentId, contentData) {
     feedbackHeader: 'Feedback',
     scoreBarLabel: 'You got :num out of :total points',
     scoreExplanationButtonLabel: 'Show score explanation',
+    submitAnswers: 'Submit Answers',
     question: {
       settings: {
         questionTitle: (this.contentData && this.contentData.metadata && this.contentData.metadata.title) ? this.contentData.metadata.title : 'Drag and drop',
@@ -66,7 +67,8 @@ function C(options, contentId, contentData) {
       dropZoneHighlighting: 'dragging',
       autoAlignSpacing: 2,
       showScorePoints: true,
-      showTitle: false
+      showTitle: false,
+      showSubmitAnswersButton: true
     },
     a11yCheck: 'Check the answers. The responses will be marked as correct, incorrect, or unanswered.',
     a11yRetry: 'Retry the task. Reset all responses and start the task over again.',
@@ -461,7 +463,7 @@ C.prototype.addResponseToXAPI = function(xAPIEvent) {
   var maxScore = this.getMaxScore();
   var score = this.getScore();
   var success = score == maxScore ? true : false;
-  xAPIEvent.setScoredResult(score, maxScore, this, true, success);
+  xAPIEvent.setScoredResult(1, 1, this, true, success);
   xAPIEvent.data.statement.result.response = this.getUserXAPIResponse();
 };
 
@@ -559,9 +561,13 @@ C.prototype.createQuestionContent = function () {
 };
 
 C.prototype.registerButtons = function () {
-  if (this.options.behaviour.enableCheckButton) {
+  if (this.options.behaviour.enableCheckButton && typeof this.parent != 'undefined') {
     // Add show score button
     this.addSolutionButton();
+  }
+  if (this.options.behaviour.showSubmitAnswersButton && typeof this.parent == 'undefined') {
+    // Add show score button
+    this.addSubmitAnswerButton();
   }
 
   this.addRetryButton();
@@ -582,8 +588,38 @@ C.prototype.addSolutionButton = function () {
     that.addQuestionToXAPI(xAPIEvent);
     that.addResponseToXAPI(xAPIEvent);
     that.trigger(xAPIEvent);
+    
+
+    // Focus top of task for better focus and read-speaker flow
+    var $nextFocus = that.$introduction ? that.$introduction : that.$container.children().first();
+    $nextFocus.focus();
+  }, true, {
+    'aria-label': this.options.a11yCheck,
+  });
+};
+
+
+/**
+ * Add submit answers button to our container.
+ */
+ C.prototype.addSubmitAnswerButton = function () {
+  var that = this;
+
+  this.addButton('check-answer', this.options.submitAnswers, function () {
+    var xAPIEvent = that.createXAPIEventTemplate('answered');
+    that.addQuestionToXAPI(xAPIEvent);
+    that.addResponseToXAPI(xAPIEvent);
+    that.trigger(xAPIEvent);
     if( typeof that.parent == 'undefined') {
-     that.triggerXAPIScored(that.getScore(), that.getMaxScore(), 'submitted-curriki');
+      var xAPIEvent = that.createXAPIEventTemplate('completed');
+      that.addQuestionToXAPI(xAPIEvent);
+      that.addResponseToXAPI(xAPIEvent);
+      that.trigger(xAPIEvent);
+      var score = that.getMaxScore();
+      if(that.getScore() < that.getMaxScore())
+        that.triggerXAPIScored(score, that.getMaxScore(), 'submitted-curriki');
+      else
+        that.triggerXAPIScored(that.getScore(), that.getMaxScore(), 'submitted-curriki');
     }
 
     // Focus top of task for better focus and read-speaker flow
