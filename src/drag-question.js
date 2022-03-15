@@ -182,6 +182,10 @@ function C(options, contentId, contentData) {
     draggable.on('interacted', function () {
       self.answered = true;
       self.triggerXAPI('interacted');
+      // set activity start time on first interaction
+      if(!self.activityStartTime) {
+        self.activityStartTime = Date.now();
+      }
     });
     draggable.on('leavingDropZone', function (event) {
       self.dropZones[event.data.dropZone].removeAlignable(event.data.$);
@@ -462,8 +466,8 @@ C.prototype.getXAPIDefinition = function () {
 C.prototype.addResponseToXAPI = function(xAPIEvent) {
   var maxScore = this.getMaxScore();
   var score = this.getScore();
-  var success = score == maxScore ? true : false;
-  xAPIEvent.setScoredResult(1, 1, this, true, success);
+  var success = score === maxScore;
+  xAPIEvent.setScoredResult(score, maxScore, this, true, success);
   xAPIEvent.data.statement.result.response = this.getUserXAPIResponse();
 };
 
@@ -918,6 +922,8 @@ C.prototype.resetTask = function () {
   this.hideButton('try-again');
   this.removeFeedback();
   this.setExplanation();
+  /* XAPI restart the activityStartTime */
+  this.activityStartTime = Date.now();
 };
 
 /**
