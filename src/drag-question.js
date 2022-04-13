@@ -71,6 +71,7 @@ function C(options, contentId, contentData) {
       showSubmitAnswersButton: true
     },
     a11yCheck: 'Check the answers. The responses will be marked as correct, incorrect, or unanswered.',
+    a11ySubmit: 'Submit the answers.',
     a11yRetry: 'Retry the task. Reset all responses and start the task over again.',
   }, options);
 
@@ -565,12 +566,13 @@ C.prototype.createQuestionContent = function () {
 };
 
 C.prototype.registerButtons = function () {
-  if (this.options.behaviour.enableCheckButton && typeof this.parent != 'undefined') {
+  if (this.options.behaviour.enableCheckButton) {
     // Add show score button
-    this.addSolutionButton();
+    this.addCheckButton();
   }
+
   if (this.options.behaviour.showSubmitAnswersButton && typeof this.parent == 'undefined') {
-    // Add show score button
+    // Add submit answer button
     this.addSubmitAnswerButton();
   }
 
@@ -580,7 +582,7 @@ C.prototype.registerButtons = function () {
 /**
  * Add solution button to our container.
  */
-C.prototype.addSolutionButton = function () {
+C.prototype.addCheckButton = function () {
   var that = this;
 
   this.addButton('check-answer', this.options.scoreShow, function () {
@@ -588,15 +590,27 @@ C.prototype.addSolutionButton = function () {
     that.showAllSolutions();
     that.showScore();
     that.addExplanation();
-    var xAPIEvent = that.createXAPIEventTemplate('answered');
-    that.addQuestionToXAPI(xAPIEvent);
-    that.addResponseToXAPI(xAPIEvent);
-    that.trigger(xAPIEvent);
-    
+
+    if(that.options.behaviour.showSubmitAnswersButton && typeof that.parent == 'undefined') {
+      that.showButton('submit-answer');
+    }
+
+    // trigger answered XAPI statement
+    var xAPIAnsweredEvent = that.createXAPIEventTemplate('answered');
+    that.addQuestionToXAPI(xAPIAnsweredEvent);
+    that.addResponseToXAPI(xAPIAnsweredEvent);
+    that.trigger(xAPIAnsweredEvent);
+
+    // trigger completed XAPI statement
+    var xAPICompletedEvent = that.createXAPIEventTemplate('completed');
+    that.addQuestionToXAPI(xAPICompletedEvent);
+    that.addResponseToXAPI(xAPICompletedEvent);
+    that.trigger(xAPICompletedEvent);
 
     // Focus top of task for better focus and read-speaker flow
     var $nextFocus = that.$introduction ? that.$introduction : that.$container.children().first();
     $nextFocus.focus();
+
   }, true, {
     'aria-label': this.options.a11yCheck,
   });
@@ -606,31 +620,20 @@ C.prototype.addSolutionButton = function () {
 /**
  * Add submit answers button to our container.
  */
- C.prototype.addSubmitAnswerButton = function () {
+C.prototype.addSubmitAnswerButton = function () {
   var that = this;
+  this.addButton('submit-answer', this.options.submitAnswers, function () {
+    // hide submit button
+    that.hideButton('submit-answer');
 
-  this.addButton('check-answer', this.options.submitAnswers, function () {
-    var xAPIEvent = that.createXAPIEventTemplate('answered');
-    that.addQuestionToXAPI(xAPIEvent);
-    that.addResponseToXAPI(xAPIEvent);
-    that.trigger(xAPIEvent);
-    if( typeof that.parent == 'undefined') {
-      var xAPIEvent = that.createXAPIEventTemplate('completed');
-      that.addQuestionToXAPI(xAPIEvent);
-      that.addResponseToXAPI(xAPIEvent);
-      that.trigger(xAPIEvent);
-      var score = that.getMaxScore();
-      if(that.getScore() < that.getMaxScore())
-        that.triggerXAPIScored(score, that.getMaxScore(), 'submitted-curriki');
-      else
-        that.triggerXAPIScored(that.getScore(), that.getMaxScore(), 'submitted-curriki');
-    }
+    // trigger submitted
+    that.triggerXAPIScored(that.getScore(), that.getMaxScore(), 'submitted-curriki');
 
     // Focus top of task for better focus and read-speaker flow
     var $nextFocus = that.$introduction ? that.$introduction : that.$container.children().first();
     $nextFocus.focus();
-  }, true, {
-    'aria-label': this.options.a11yCheck,
+  }, false, {
+    'aria-label': this.options.a11ySubmit,
   });
 };
 
@@ -920,6 +923,7 @@ C.prototype.resetTask = function () {
   //Show solution button
   this.showButton('check-answer');
   this.hideButton('try-again');
+  this.hideButton('submit-answer');
   this.removeFeedback();
   this.setExplanation();
   /* XAPI restart the activityStartTime */
