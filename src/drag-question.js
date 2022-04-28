@@ -601,11 +601,13 @@ C.prototype.addCheckButton = function () {
     that.addResponseToXAPI(xAPIAnsweredEvent);
     that.trigger(xAPIAnsweredEvent);
 
-    // trigger completed XAPI statement
-    var xAPICompletedEvent = that.createXAPIEventTemplate('completed');
-    that.addQuestionToXAPI(xAPICompletedEvent);
-    that.addResponseToXAPI(xAPICompletedEvent);
-    that.trigger(xAPICompletedEvent);
+    if(that.isRoot()) {
+      // trigger completed XAPI statement for standalone
+      var xAPICompletedEvent = that.createXAPIEventTemplate('completed');
+      that.addQuestionToXAPI(xAPICompletedEvent);
+      that.addResponseToXAPI(xAPICompletedEvent);
+      that.trigger(xAPICompletedEvent);
+    }
 
     // Focus top of task for better focus and read-speaker flow
     var $nextFocus = that.$introduction ? that.$introduction : that.$container.children().first();
