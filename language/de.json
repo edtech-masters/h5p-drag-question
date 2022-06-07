@@ -5,6 +5,10 @@
       "default": "Überprüfen"
     },
     {
+      "label": "Beschriftung des \"Antwort übermitteln\"-Buttons",
+      "default": "Übermitteln"
+    },
+    {
       "label": "Beschriftung für den \"Wiederholen\"-Button",
       "default": "Wiederholen"
     },
@@ -148,9 +152,6 @@
           "label": "\"Überprüfen\"-Button anzeigen"
         },
         {
-          "label": "Lernende können die Lösung erst einsehen, wenn sie vorher eine Eingabe gemacht haben"
-        },
-        {
           "label": "Einen Punkt für die ganze Aufgabe vergeben",
           "description": "Deaktivieren, um für jedes richtig zugeordnete Element einen Punkt zu geben."
         },
@@ -164,7 +165,7 @@
         },
         {
           "label": "Hintergrunddeckkraft für bewegliche Elemente",
-          "description": "Wenn dieses Feld gesetzt ist, wird dadurch die Hintergrunddeckkraft für alle beweglichen Elemente überschrieben. Es sollte eine Zahl zwischen 0 und 100 sein, wobei 0 für vollständige Transparenz steht und 100 für keine Transparenz."
+          "description": "Wenn dieser Wert gesetzt ist, wird dadurch die Hintergrunddeckkraft für alle beweglichen Elemente überschrieben. Es sollte eine Zahl zwischen 0 und 100 sein, wobei 0 für vollständige Transparenz steht und 100 für keine Transparenz."
         },
         {
           "label": "Ablagezonen aufleuchten lassen",

@@ -1,8 +1,12 @@
 {
   "semantics": [
     {
-      "label": "Check answer button",
+      "label": "Cevapla düğmesini kontrol et",
       "default": "Kontrol et"
+    },
+    {
+      "label": "Submit answer button",
+      "default": "Submit"
     },
     {
       "label": "Retry button",
@@ -146,9 +150,6 @@
         },
         {
           "label": "Enable \"Check\" button"
-        },
-        {
-          "label": "Require user input before the solution can be viewed"
         },
         {
           "label": "Bütün aktivite için bir puan verin",

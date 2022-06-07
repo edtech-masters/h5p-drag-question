@@ -5,6 +5,10 @@
       "default": "Comprobar"
     },
     {
+      "label": "Botón para enviar respuesta",
+      "default": "Submit"
+    },
+    {
       "label": "Botón Reintentar",
       "default": "Reintentar"
     },
@@ -18,7 +22,7 @@
           "label": "Configuraciones",
           "fields": [
             {
-              "label": "Imagen del fondo",
+              "label": "Imagen de fondo",
               "description": "Opcional. Seleccione una imagen para usar como fondo para su trabajo de arrastrar y soltar."
             },
             {
@@ -77,7 +81,7 @@
                     "label": "Seleccionar elementos correctos"
                   },
                   {
-                    "label": "Opacidad del fondo"
+                    "label": "Opacidad del Fondo"
                   },
                   {
                     "label": "Pistas y retroalimentación",
@@ -146,9 +150,6 @@
         },
         {
           "label": "Habilitar botón \"Comprobar\""
-        },
-        {
-          "label": "Requerir entrada del usuario antes de que pueda verse la solución"
         },
         {
           "label": "Dar un punto por todo el trabajo",
@@ -244,7 +245,7 @@
       "default": "Respuesta incorrecta"
     },
     {
-      "label": "Encabezado para panel que contiene realimentación para respuestas correctas/incorrectas",
+      "label": "Encabezado para panel que contiene retroalimentación para respuestas correctas/incorrectas",
       "default": "Retroalimentación"
     },
     {

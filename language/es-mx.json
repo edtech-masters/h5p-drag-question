@@ -5,6 +5,10 @@
       "default": "Comprobar"
     },
     {
+      "label": "Botón para enviar respuesta",
+      "default": "Submit"
+    },
+    {
       "label": "Botón Reintentar",
       "default": "Reintentar"
     },
@@ -148,9 +152,6 @@
           "label": "Habilitar botón \"Comprobar\""
         },
         {
-          "label": "Requerir entrada del usuario antes de que pueda verse la solución"
-        },
-        {
           "label": "Dar un punto por todo el trabajo",
           "description": "Deshabilitar dar un punto por cada arrastrable que es colocado correctamente."
         },
@@ -228,7 +229,7 @@
       "default": "No es zona de caída."
     },
     {
-      "label": "Etiqueta para botón para mostrar pista",
+      "label": "Etiqueta para mostrar el botón de pista",
       "default": "Mostrar pista."
     },
     {
@@ -244,7 +245,7 @@
       "default": "Respuesta incorrecta"
     },
     {
-      "label": "Encabezado para panel que contiene realimentación para respuestas correctas/incorrectas",
+      "label": "Encabezado para panel que contiene retroalimentación para respuestas correctas/incorrectas",
       "default": "Retroalimentación"
     },
     {

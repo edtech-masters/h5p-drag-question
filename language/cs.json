@@ -5,6 +5,10 @@
       "default": "Zkontrolovat"
     },
     {
+      "label": "Tlačítko odeslání odpovědi",
+      "default": "Submit"
+    },
+    {
       "label": "Tlačítko opakovat",
       "default": "Opakovat"
     },
@@ -148,9 +152,6 @@
           "label": "Povolit tlačítko \"Kontrola\""
         },
         {
-          "label": "Před zobrazením řešení je třeba zadat vstup uživatele"
-        },
-        {
           "label": "Jeden bod za celý úkol",
           "description": "Zakázat udělit jeden bod za každou přesouvanou položku, která je umístěna správně."
         },
@@ -202,7 +203,7 @@
       "label": "Localizace",
       "fields": [
         {
-          "label": "Pipisek celá obrazovka",
+          "label": "Popisek celá obrazovka",
           "default": "Celá obrazovka"
         },
         {

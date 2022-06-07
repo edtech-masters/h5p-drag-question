@@ -5,6 +5,10 @@
       "default": "Tarkista"
     },
     {
+      "label": "Submit answer button",
+      "default": "Submit"
+    },
+    {
       "label": "Painikkeen \"Yritä uudelleen\" nimi",
       "default": "Yritä uudelleen"
     },
@@ -146,9 +150,6 @@
         },
         {
           "label": "Salli \"Check\" painike"
-        },
-        {
-          "label": "Vaadi vastaus ennen kuin ratkaisun saa nähdä"
         },
         {
           "label": "Anna yksi piste koko tehtävästä",

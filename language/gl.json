@@ -5,6 +5,10 @@
       "default": "Comprobar"
     },
     {
+      "label": "Botón para enviar resposta",
+      "default": "Submit"
+    },
+    {
       "label": "Botón reintentar",
       "default": "Reintentar"
     },
@@ -148,9 +152,6 @@
           "label": "Activar botón \"Comprobar\""
         },
         {
-          "label": "Requirir entrada do usuario antes de poder ver a solución"
-        },
-        {
           "label": "Dar un punto á tarefa completa",
           "description": "Desactiva isto se queres dar un punto por cada elemento arrastrable colocado correctamente."
         },
@@ -199,7 +200,7 @@
       ]
     },
     {
-      "label": "Adaptación local",
+      "label": "Localizar",
       "fields": [
         {
           "label": "Etiqueta para pantalla completa",

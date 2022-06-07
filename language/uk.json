@@ -5,6 +5,10 @@
       "default": "Перевірити"
     },
     {
+      "label": "Submit answer button",
+      "default": "Submit"
+    },
+    {
       "label": "Кнопка повтора",
       "default": "Повторити"
     },
@@ -148,9 +152,6 @@
           "label": "Включити кнопку \"Перевірити\""
         },
         {
-          "label": "Потрібне введення данних користувачем, перед тим як відповіді можуть бути переглянуті"
-        },
-        {
           "label": "Додавати один бал за все завдання",
           "description": "Вимкнути, щоб вказати одну точку за кожен правильно розміщений перетягуваний елемент."
         },
@@ -261,7 +262,7 @@
     },
     {
       "label": "Assistive technology label for \"Retry\" button",
-      "default": "Retry the task. Reset all responses and start the task over again."
+      "default": "Повторіть завдання. Скиньте всі відповіді та почніть завдання знову."
     }
   ]
 }

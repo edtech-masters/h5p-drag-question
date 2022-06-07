@@ -5,6 +5,10 @@
       "default": "Verifica"
     },
     {
+      "label": "Submit answer button",
+      "default": "Submit"
+    },
+    {
       "label": "Botó \"Torna-ho a provar\"",
       "default": "Torna-ho a provar"
     },
@@ -146,9 +150,6 @@
         },
         {
           "label": "Activa el botó \"Comprova\""
-        },
-        {
-          "label": "Requereix l’entrada de dades per part de l’usuari abans que es pugui visualitzar la solució"
         },
         {
           "label": "Donar un punt per la tasca sencera",
