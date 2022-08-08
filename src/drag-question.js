@@ -2,6 +2,7 @@ import Controls from 'h5p-lib-controls/src/scripts/controls';
 import AriaDrag from 'h5p-lib-controls/src/scripts/aria/drag';
 import AriaDrop from 'h5p-lib-controls/src/scripts/aria/drop';
 import UIKeyboard from 'h5p-lib-controls/src/scripts/ui/keyboard';
+import Mouse from 'h5p-lib-controls/src/scripts/ui/mouse';
 
 import DragUtils from './drag-utils';
 import DropZone from './dropzone';
@@ -61,7 +62,6 @@ function C(options, contentId, contentData) {
       enableCheckButton: true,
       preventResize: false,
       singlePoint: false,
-      showSolutionsRequiresInput: true,
       applyPenalties: true,
       enableScoreExplanation: true,
       dropZoneHighlighting: 'dragging',
@@ -73,6 +73,7 @@ function C(options, contentId, contentData) {
     a11yCheck: 'Check the answers. The responses will be marked as correct, incorrect, or unanswered.',
     a11ySubmit: 'Submit the answers.',
     a11yRetry: 'Retry the task. Reset all responses and start the task over again.',
+    submit: 'Submit',
   }, options);
 
   // If single point is enabled, it makes no sense displaying
@@ -152,7 +153,7 @@ function C(options, contentId, contentData) {
     }
 
     // Create new draggable instance
-    var draggable = new Draggable(element, i, answers, grabbablel10n);
+    var draggable = new Draggable(element, i, answers, grabbablel10n, task.dropZones);
     var highlightDropZones = (self.options.behaviour.dropZoneHighlighting === 'dragging');
     draggable.on('elementadd', function (event) {
       controls.drag.addElement(event.data);
@@ -615,6 +616,9 @@ C.prototype.addCheckButton = function () {
 
   }, true, {
     'aria-label': this.options.a11yCheck,
+  }, {
+    contentData: this.contentData,
+    textIfSubmitting: this.options.submit,
   });
 };
 
@@ -992,7 +996,7 @@ C.prototype.getScore = function () {
  * @returns {Boolean}
  */
 C.prototype.getAnswerGiven = function () {
-  return !this.options.behaviour.showSolutionsRequiresInput || this.answered || this.blankIsCorrect;
+  return this.answered || this.blankIsCorrect;
 };
 
 /**
@@ -1064,8 +1068,8 @@ C.prototype.getTitle = function() {
 var getControls = function (draggables, dropZones, noDropzone) {
   // Initialize controls components
   var controls = {
-    drag: new Controls([new UIKeyboard(), new AriaDrag()]),
-    drop: new Controls([new UIKeyboard(), new AriaDrop()])
+    drag: new Controls([new UIKeyboard(), new Mouse(), new AriaDrag()]),
+    drop: new Controls([new UIKeyboard(), new Mouse(), new AriaDrop()])
   };
   controls.drag.useNegativeTabIndex();
   controls.drop.useNegativeTabIndex();
